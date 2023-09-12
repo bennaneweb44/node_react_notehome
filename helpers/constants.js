@@ -17,6 +17,16 @@ export const userAuthRequiredFields = {
   PASSWORD: 'password'
 };
 
+// user fields that can be updated
+export const userUpdateFields = {
+  USERNAME: 'username'
+};
+
+// messages for front user
+export const FRONT_MESSAGES = {
+  NOT_AUTHORIZED: 'Accès non autorisé. Vous devez d\'abord vous connecter'
+};
+
 // the mandatory fields to create a blog for a user
 export const blogCreationRequiredFields = {
   USER_ID: 'userId',
@@ -28,11 +38,6 @@ export const blogCreationRequiredFields = {
 export const possibleBlogUpdateFields = {
   TITLE: 'title',
   DESCRIPTION: 'description'
-};
-
-// user fields that can be updated
-export const userUpdateFields = {
-  USERNAME: 'username'
 };
 
 // db error codes for error handling

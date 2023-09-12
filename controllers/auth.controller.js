@@ -36,13 +36,13 @@ export class AuthController {
     try {
       const insertUserResult = await AuthService.signUpUser(username, password);
 
-      return sendResponse(res, STATUS_CODES.SUCCESSFULLY_CREATED, 'The user signed up successfully', { id: insertUserResult.insertId, username });
+      return sendResponse(res, STATUS_CODES.SUCCESSFULLY_CREATED, 'Utilisateur inscrit avec succès', { id: insertUserResult.insertId, username });
     } catch (error) {
       if (error.code === dbErrorCodes.ER_DUP_ENTRY) delete error.sql; // avoiding the sql query to prevent showcasing sensitive information in the response
 
       return next(
         new AppError(
-          error.code === dbErrorCodes.ER_DUP_ENTRY ? 'Username already exists' : error.message || 'Internal Server Error',
+          error.code === dbErrorCodes.ER_DUP_ENTRY ? 'Ce nom d\'utilisateur existe déjà' : error.message || 'Internal Server Error',
           error.code === dbErrorCodes.ER_DUP_ENTRY ? STATUS_CODES.BAD_REQUEST : error.status || STATUS_CODES.INTERNAL_SERVER_ERROR,
           error.response || error
         )
@@ -72,13 +72,12 @@ export class AuthController {
 
       saveCookie(res, cookieAttributeForJwtToken, access_token);
 
-      return sendResponse(res, STATUS_CODES.OK, 'User logged in successfully', { userId: user.id, username: user.username });
+      return sendResponse(res, STATUS_CODES.OK, 'Connecté avec succès', { userId: user.id, username: user.username });
     } catch (error) {
       next(
         new AppError(
           error.message || 'Internal Server Error',
-          error.message === 'Incorrect username'
-          || error.message === 'Incorrect password'
+          error.message === 'Identifiants incorrects'
             ? STATUS_CODES.BAD_REQUEST
             : error.status || STATUS_CODES.INTERNAL_SERVER_ERROR,
           error.response || error
@@ -98,9 +97,9 @@ export class AuthController {
     if (req.cookies[`${cookieAttributeForJwtToken}`]) {
       res.clearCookie(cookieAttributeForJwtToken);
 
-      return sendResponse(res, STATUS_CODES.OK, 'User logged out successfully');
+      return sendResponse(res, STATUS_CODES.OK, 'Vous avez bien été déconnecté');
     }
 
-    return next(new AppError('You need to log in first', STATUS_CODES.BAD_REQUEST));
+    return next(new AppError('Vous devez d\'abord vous connecter', STATUS_CODES.BAD_REQUEST));
   }
 }

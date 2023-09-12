@@ -10,14 +10,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nilam23/node-express-mysql-restapis.git"
+    "url": "git+https://github.com/bennaneweb44/node_react_notehome.git"
   },
-  "author": "Nilam Pathak",
-  "license": "ISC",
+  "author": "Aziz BENNANE",
   "bugs": {
-    "url": "https://github.com/nilam23/node-express-mysql-restapis/issues"
+    "url": "https://github.com/bennaneweb44/node_react_notehome/issues"
   },
-  "homepage": "https://github.com/nilam23/node-express-mysql-restapis#readme",
+  "homepage": "https://github.com/bennaneweb44/node_react_notehome#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",

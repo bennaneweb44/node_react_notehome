@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { STATUS_CODES, cookieAttributeForJwtToken } from '../helpers/constants.js';
+import { FRONT_MESSAGES, STATUS_CODES, cookieAttributeForJwtToken } from '../helpers/constants.js';
 import { AppError } from '../helpers/error.js';
 import { verifyJwtToken } from '../helpers/utils.js';
 
@@ -26,9 +26,9 @@ AuthMiddlewares.checkAuth = async (req, res, next) => {
       };
       next();
     } catch (error) {
-      return next(new AppError('You are not authorized', STATUS_CODES.UNAUTHORIZED));
+      return next(new AppError(FRONT_MESSAGES.NOT_AUTHORIZED, STATUS_CODES.UNAUTHORIZED));
     }
-  } else return next(new AppError('You are not authorized', STATUS_CODES.UNAUTHORIZED));
+  } else return next(new AppError(FRONT_MESSAGES.NOT_AUTHORIZED, STATUS_CODES.UNAUTHORIZED));
 };
 
 /**
@@ -42,5 +42,5 @@ AuthMiddlewares.isAuthenticated = async (req, res, next) => {
   const token = req.cookies[`${cookieAttributeForJwtToken}`];
 
   if (!token) return next();
-  return next(new AppError('You are already logged in', STATUS_CODES.BAD_REQUEST));
+  return next(new AppError('Déjà connecté', STATUS_CODES.BAD_REQUEST));
 };

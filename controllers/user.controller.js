@@ -1,4 +1,5 @@
 import {
+  FRONT_MESSAGES,
   STATUS_CODES,
   blogCreationRequiredFields,
   cookieAttributeForJwtToken,
@@ -123,7 +124,7 @@ export class UserController {
 
       if (!blogToBeUpdated) return next(new AppError(`Blog with id ${blogId} not found`, STATUS_CODES.NOT_FOUND));
 
-      if (blogToBeUpdated.userId !== res.locals.user.id) return next(new AppError('You are not authorized', STATUS_CODES.FORBIDDEN));
+      if (blogToBeUpdated.userId !== res.locals.user.id) return next(new AppError(FRONT_MESSAGES.NOT_AUTHORIZED, STATUS_CODES.FORBIDDEN));
 
       const updateBlogResult = await UserModel.updateBlog(requestBody, blogId);
 
@@ -155,7 +156,7 @@ export class UserController {
 
       if (!blogToBeDeleted) return next(new AppError(`Blog with id ${blogId} not found`, STATUS_CODES.NOT_FOUND));
 
-      if (blogToBeDeleted.userId !== res.locals.user.id) return next(new AppError('You are not authorized', STATUS_CODES.FORBIDDEN));
+      if (blogToBeDeleted.userId !== res.locals.user.id) return next(new AppError(FRONT_MESSAGES.NOT_AUTHORIZED, STATUS_CODES.FORBIDDEN));
 
       const deleteBlogResult = await UserModel.deleteBlog(blogId);
 
@@ -188,7 +189,7 @@ export class UserController {
 
       if (!user) return next(new AppError(`User with id ${userId} does not exist`, STATUS_CODES.NOT_FOUND));
 
-      if (user.id !== res.locals.user.id) return next(new AppError('You are not authorized', STATUS_CODES.FORBIDDEN));
+      if (user.id !== res.locals.user.id) return next(new AppError(FRONT_MESSAGES.NOT_AUTHORIZED, STATUS_CODES.FORBIDDEN));
 
       return sendResponse(res, STATUS_CODES.OK, `User with id ${userId} fetched successfully`, {
         id: user.id,
@@ -226,7 +227,7 @@ export class UserController {
 
       if (!user) return next(new AppError(`User with id ${userId} does not exist`, STATUS_CODES.NOT_FOUND));
 
-      if (user.id !== res.locals.user.id) return next(new AppError('You are not authorized', STATUS_CODES.FORBIDDEN));
+      if (user.id !== res.locals.user.id) return next(new AppError(FRONT_MESSAGES.NOT_AUTHORIZED, STATUS_CODES.FORBIDDEN));
 
       const updateUserResult = await UserModel.updateUser(requestBody, userId);
 
@@ -258,7 +259,7 @@ export class UserController {
 
       if (!user) return next(new AppError(`User with id ${userId} does not exist`, STATUS_CODES.NOT_FOUND));
 
-      if (user.id !== res.locals.user.id) return next(new AppError('You are not authorized', STATUS_CODES.FORBIDDEN));
+      if (user.id !== res.locals.user.id) return next(new AppError(FRONT_MESSAGES.NOT_AUTHORIZED, STATUS_CODES.FORBIDDEN));
 
       const deleteUserResult = await UserModel.deleteUser(userId);
 

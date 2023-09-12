@@ -1,4 +1,4 @@
-import { getJwtToken, getHashPassword, verifyUserPassword } from '../helpers/utils.js';
+import { getHashPassword, getJwtToken, verifyUserPassword } from '../helpers/utils.js';
 import { AuthModel } from '../models/auth.model.js';
 
 export const AuthService = {};
@@ -40,6 +40,6 @@ AuthService.logInUser = async (username, password) => {
       const token = getJwtToken(jwtPayload);
 
       return { user, token };
-    } throw Error('Incorrect password');
-  } throw Error('Incorrect username');
+    } throw Error('Identifiants incorrects');
+  } throw Error('Identifiants incorrects');
 };
